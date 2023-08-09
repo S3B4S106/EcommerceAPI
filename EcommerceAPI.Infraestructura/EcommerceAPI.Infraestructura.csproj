@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositorios\" />
     <Folder Include="ServiciosExternos\WebClient\Modelos\" />
     <Folder Include="ServiciosExternos\WebClient\" />
   </ItemGroup>

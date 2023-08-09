@@ -35,8 +35,23 @@ namespace EcommerceAPI.Configuracion.Inicial
             };
             services.RegisterAssemblyPublicNonGenericClasses(assembliesToScan)
                 .Where(c => c.Name.EndsWith("Repository") ||
-                       c.Name.EndsWith("Service"))
+                       c.Name.EndsWith("Service")||
+                       c.Name.EndsWith("Helper"))
                 .AsPublicImplementedInterfaces();
+            #endregion
+
+            #region [Configuración de CORS]
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                });
+            });
+
             #endregion
         }
     }
