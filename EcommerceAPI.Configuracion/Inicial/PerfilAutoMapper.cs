@@ -10,6 +10,7 @@ namespace EcommerceAPI.Configuracion.Inicial
         public PerfilAutoMapper() 
         {
             CreateMap<ClienteEntity, ClienteContract>().ReverseMap();
+            CreateMap<CompraEntity, CompraContract>().ReverseMap();
         }
     }
 }
