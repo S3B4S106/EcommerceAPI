@@ -1,10 +1,12 @@
 ﻿using EcommerceAPI.Comunes.Classes.Contracts.Ecommerce;
 using EcommerceAPI.Dominio.Services.Ecommerce.General;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientesController : Controller

@@ -27,6 +27,8 @@ app.UseCors("CorsPolicy");
 
 app.UseMiddleware<MiddlewareExcepciones>();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

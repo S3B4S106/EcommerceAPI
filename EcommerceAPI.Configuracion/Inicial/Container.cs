@@ -1,11 +1,14 @@
 ﻿
 using AutoMapper;
 using EcommerceAPI.Infraestructura.Database.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using NetCore.AutoRegisterDi;
 using System.Reflection;
+using System.Text;
 
 namespace EcommerceAPI.Configuracion.Inicial
 {
@@ -39,6 +42,23 @@ namespace EcommerceAPI.Configuracion.Inicial
                        c.Name.EndsWith("Helper"))
                 .AsPublicImplementedInterfaces();
             #endregion
+
+            #region [JWT]
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = configuration["Jwt:Audience"],
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                };
+            });
+            #endregion
+
 
             #region [Configuración de CORS]
 
