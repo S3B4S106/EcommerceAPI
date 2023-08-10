@@ -14,14 +14,17 @@ namespace EcommerceAPI.Infraestructura.Repositorios.Ecommerce.Compra
         {
             _context = context;
         }
-        public Task<CompraEntity> CreateAsync(CompraEntity entity)
+        public async Task<CompraEntity> CreateAsync(CompraEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Compra.Add(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public Task DeleteAsync(CompraEntity entity)
+        public async Task DeleteAsync(CompraEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Compra.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<CompraEntity>> GetAll()
@@ -29,14 +32,17 @@ namespace EcommerceAPI.Infraestructura.Repositorios.Ecommerce.Compra
             return await _context.Compra.ToListAsync();
         }
 
-        public Task<CompraEntity> GetbyId(int id)
+        public async Task<CompraEntity> GetbyId(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Compra.
+            FirstOrDefaultAsync(m => m.id_compra == id);
         }
 
-        public Task<CompraEntity> UpdateAsync(CompraEntity entity)
+        public async Task<CompraEntity> UpdateAsync(CompraEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Compra.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }

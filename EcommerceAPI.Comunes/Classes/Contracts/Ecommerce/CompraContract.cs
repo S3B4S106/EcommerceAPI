@@ -12,7 +12,7 @@ namespace EcommerceAPI.Comunes.Classes.Contracts.Ecommerce
         public decimal valor_total { get; set; }
         public string direccionentrega { get; set; }
 
-        //public int id_estado { get; set; }
+        public int id_estado { get; set; }
 
         // public EstadoEntity estado { get; set; } = null;
 

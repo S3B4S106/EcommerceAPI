@@ -21,14 +21,16 @@ namespace EcommerceAPI.Dominio.Services.Ecommerce.Compra
             _crudRepository = crudRepository;
             _mapper = mapper;
         }
-        public Task<CompraContract> CreateAsync(CompraContract entity)
+        public async Task<CompraContract> CreateAsync(CompraContract entity)
         {
-            throw new NotImplementedException();
+           CompraEntity compra =  await _crudRepository.CreateAsync(_mapper.Map<CompraEntity>(entity));
+            return _mapper.Map<CompraContract>(compra);
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            CompraEntity compra = await _crudRepository.GetbyId(id);
+            await _crudRepository.DeleteAsync(compra);
         }
 
         public async Task<List<CompraContract>> GetAll()
@@ -37,14 +39,17 @@ namespace EcommerceAPI.Dominio.Services.Ecommerce.Compra
             return _mapper.Map<List<CompraContract>>(compraEntities);
         }
 
-        public Task<CompraContract> GetbyId(int id)
+        public async Task<CompraContract> GetbyId(int id)
         {
-            throw new NotImplementedException();
+            CompraEntity compra = await _crudRepository.GetbyId(id);
+            return _mapper.Map<CompraContract>(compra);
+
         }
 
-        public Task<CompraContract> UpdateAsync(CompraContract entity)
+        public async Task<CompraContract> UpdateAsync(CompraContract entity)
         {
-            throw new NotImplementedException();
+            CompraEntity compra = await _crudRepository.UpdateAsync(_mapper.Map<CompraEntity>(entity));
+            return _mapper.Map<CompraContract>(compra);
         }
     }
 }

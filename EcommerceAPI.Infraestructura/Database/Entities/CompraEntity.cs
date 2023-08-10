@@ -13,9 +13,9 @@ namespace EcommerceAPI.Infraestructura.Database.Entities
         public decimal valor_total { get; set; }
         public string direccionentrega { get; set; }
 
-       // public int id_estado { get; set; }
+        public int id_estado { get; set; }
 
-        //[ForeignKey("id_estado")]
+        [ForeignKey("id_estado")]
        // public EstadoEntity estado { get; set; } = null;
 
         public int id_cliente { get; set; }

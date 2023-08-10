@@ -25,27 +25,31 @@ namespace EcommerceAPI.Controllers
 
         // GET api/<CompraController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            return Ok(await _service.GetbyId(id));
         }
 
         // POST api/<CompraController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post(CompraContract compra)
         {
+            return Ok(await _service.CreateAsync(compra));
         }
 
         // PUT api/<CompraController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Update(CompraContract contract)
         {
+            return Ok(await _service.UpdateAsync(contract));
         }
 
         // DELETE api/<CompraController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            await _service.DeleteAsync(id);
+            return Ok();
         }
     }
 }
