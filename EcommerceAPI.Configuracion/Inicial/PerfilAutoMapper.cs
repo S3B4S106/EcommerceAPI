@@ -11,6 +11,7 @@ namespace EcommerceAPI.Configuracion.Inicial
         {
             CreateMap<ClienteEntity, ClienteContract>().ReverseMap();
             CreateMap<CompraEntity, CompraContract>().ReverseMap();
+            CreateMap<EstadoEntity, EstadoContract>().ReverseMap();
         }
     }
 }
