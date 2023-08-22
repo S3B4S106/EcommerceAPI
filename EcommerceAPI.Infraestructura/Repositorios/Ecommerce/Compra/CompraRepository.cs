@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceAPI.Infraestructura.Repositorios.Ecommerce.Compra
 {
-    public class CompraRepository : ICrudRepository<CompraEntity>
+    public class CompraRepository : ICrudRepository<CompraEntity> , ICompraRepository
     {
         private readonly EcommerceContext _context;
 
@@ -30,6 +30,21 @@ namespace EcommerceAPI.Infraestructura.Repositorios.Ecommerce.Compra
         public async Task<List<CompraEntity>> GetAll()
         {
             return await _context.Compra.ToListAsync();
+        }
+
+        public async Task<List<CompraEntity>> GetByCliente(int id)
+        {
+            List<CompraEntity> compras = await _context.Compra.ToListAsync();
+            List<CompraEntity> comprasCliente = new List<CompraEntity>();
+            foreach (var item in compras)
+            {
+                if(item.id_cliente == id)
+                {
+                    comprasCliente.Add(item);
+                }
+                
+            }
+            return comprasCliente;
         }
 
         public async Task<CompraEntity> GetbyId(int id)

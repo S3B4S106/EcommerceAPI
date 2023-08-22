@@ -19,6 +19,7 @@ namespace EcommerceAPI.Controllers
         }
 
         [HttpGet]
+        [Route("GetAll")]
 
         public async Task <IActionResult> Get()
         {
@@ -34,13 +35,16 @@ namespace EcommerceAPI.Controllers
         }
 
         [HttpPost]
-        
+        [Route("Crear")]
+
         public async Task<IActionResult> Add(ClienteContract contract)
         {
             return Ok(await _service.CreateAsync(contract));
         }
 
         [HttpPut]
+        [Route("Actualizar")]
+
         public async Task<IActionResult> Update(ClienteContract contract)
         {
             return Ok(await _service.UpdateAsync(contract));

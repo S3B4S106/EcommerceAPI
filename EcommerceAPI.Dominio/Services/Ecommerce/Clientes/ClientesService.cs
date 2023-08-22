@@ -6,6 +6,7 @@ using EcommerceAPI.Comunes.Classes.Helpers.General;
 using EcommerceAPI.Dominio.Services.Ecommerce.General;
 using EcommerceAPI.Infraestructura.Database.Entities;
 using EcommerceAPI.Infraestructura.Repositorios.Ecommerce.Clientes;
+using EcommerceAPI.Infraestructura.Repositorios.Ecommerce.Compra;
 using EcommerceAPI.Infraestructura.Repositorios.Ecommerce.General;
 
 namespace EcommerceAPI.Dominio.Services.Ecommerce.Clientes
@@ -16,17 +17,23 @@ namespace EcommerceAPI.Dominio.Services.Ecommerce.Clientes
         private readonly IClientesRepository _clientesRepository;
         private readonly IMapper _mapper;
         private readonly ICifradoHelper _cifradoHelper;
+        private readonly ICompraRepository _compraRepository;
+        private readonly ICrudRepository<CompraEntity> _compraRepositoryCrud;
         public ClientesService(
            ICrudRepository<ClienteEntity>crudRepository,
            IClientesRepository clientesRepository,
            IMapper mapper,
-           ICifradoHelper cifradoHelper
+           ICifradoHelper cifradoHelper,
+           ICompraRepository compraRepository,
+           ICrudRepository<CompraEntity> compraRepositoryCrud
             ) 
         {
             _crudRepository = crudRepository;
             _clientesRepository = clientesRepository;
             _mapper = mapper;
             _cifradoHelper = cifradoHelper;
+            _compraRepository = compraRepository;
+            _compraRepositoryCrud = compraRepositoryCrud;
         }
 
         /// <summary>
@@ -58,6 +65,15 @@ namespace EcommerceAPI.Dominio.Services.Ecommerce.Clientes
             ClienteEntity cliente = await _crudRepository.GetbyId(id);
             if( cliente != null )
             {
+                List<CompraEntity> compras = await _compraRepository.GetByCliente(id);
+                if( compras != null)
+                {
+                    foreach (var item in compras)
+                    {
+                        await _compraRepositoryCrud.DeleteAsync(item);
+                    }                    
+                }
+
                 await _crudRepository.DeleteAsync(cliente);
             }
         }

@@ -9,19 +9,12 @@ namespace EcommerceAPI.Infraestructura.Database.Entities
     {
         [Key]
         public int id_compra { get; set; }
+        public int id_cliente { get; set; }
+        [ForeignKey("id_cliente")]
+        public int id_estado { get; set; }
+        [ForeignKey("id_estado")]
         public DateTime fecha_compra { get; set; }
         public decimal valor_total { get; set; }
         public string direccionentrega { get; set; }
-
-        public int id_estado { get; set; }
-
-        [ForeignKey("id_estado")]
-       // public EstadoEntity estado { get; set; } = null;
-
-        public int id_cliente { get; set; }
-        [ForeignKey("id_cliente")]
-        public ClienteEntity cliente { get; set; } = null;
-
-
     }
 }
